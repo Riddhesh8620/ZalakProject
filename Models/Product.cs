@@ -5,7 +5,9 @@ namespace ZalakProject.Models
 {
     public class Product
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string Id { get; set; } = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
 
         [Required]
         [StringLength(200)]
