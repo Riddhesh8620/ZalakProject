@@ -6,11 +6,7 @@ namespace ZalakProject.Controllers
     [Authorize(Roles ="Buyer")]
     public class BuyerController : Controller
     {
-        private readonly 
-        public BuyerController() 
-        {
-            
-        }
+        
         public IActionResult Dashboard()
         {
 
