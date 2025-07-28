@@ -6,7 +6,7 @@ namespace ZalakProject.ViewModels
 {
     public class ProductListViewModel
     {
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
 
         [Required]
         public string ProductName { get; set; } = string.Empty;
