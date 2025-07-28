@@ -22,11 +22,13 @@ namespace ZalakProject.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -114,22 +116,20 @@ namespace ZalakProject.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
-                var user = await _userManager.FindByEmailAsync(Input.Email);
-                var roles = await _userManager.GetRolesAsync(user);
-
-                if (roles.Contains("Admin"))
-                    return LocalRedirect("/Admin/Dashboard");
-                else if (roles.Contains("Seller"))
-                    return LocalRedirect("/Seller/Dashboard");
-                else if (roles.Contains("Buyer"))
-                    return LocalRedirect("/Buyer/Dashboard");
-                else
-                    return LocalRedirect(returnUrl ?? "/");
-
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    if (roles.Contains("Admin"))
+                        return LocalRedirect("/Admin/Dashboard");
+                    else if (roles.Contains("Seller"))
+                        return LocalRedirect("/Seller/Dashboard");
+                    else if (roles.Contains("Buyer"))
+                        return LocalRedirect("/Buyer/Dashboard");
+                    else
+                        return LocalRedirect(returnUrl ?? "/");
                 }
                 if (result.RequiresTwoFactor)
                 {
