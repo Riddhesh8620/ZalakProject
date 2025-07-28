@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ZalakProject.Data;
 using ZalakProject.Manager.Buyer;
+using ZalakProject.ViewModels;
 
 namespace ZalakProject.Controllers
 {
@@ -20,6 +22,11 @@ namespace ZalakProject.Controllers
             var products = await _buyerService.GetProductList(pageNumber);
             return View(products);
         }
+        //public async Task<IActionResult> ViewDetails(string id)
+        //{
+           
+        //    return View(viewModel);
+        //}
         public IActionResult Index()
         {
             return View();

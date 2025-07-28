@@ -33,7 +33,7 @@ namespace ZalakProject.Manager.ProductManager
 				Price = product.Price,
 				ProductId = product.Id,
 				ProductName = product.Name,
-				ProductImage = product.ProductImages.ToList(),
+				ProductImages = product.ProductImages.ToList(),
 				SellerId = product.SellerId,
 				StockQuantity = product.StockQuantity,
 			};

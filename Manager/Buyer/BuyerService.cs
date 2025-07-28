@@ -23,7 +23,8 @@ namespace ZalakProject.Manager.Buyer
         public async Task<PaginatedResult<BuyerProductViewModel>> GetProductList(int pageNumber)
         {
             int pageSize = 9;
-            var query = _productsDao.Include(p => p.ProductImages).AsQueryable();
+            var query = _productsDao.Include(p => p.ProductImages)
+                       .AsQueryable();
 
             int totalRecords = await query.CountAsync();
             int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
@@ -37,10 +38,8 @@ namespace ZalakProject.Manager.Buyer
                     ProductId = p.Id,
                     ProductName = p.Name,
                     Price = p.Price,
-                    ProductImage = p.ProductImages
-                                    .OrderBy(img => img.Id)
-                                    .Select(img => img.ImagePath)
-                                    .FirstOrDefault()
+                    ProductImages =  p.ProductImages.ToList(),
+
                 })
                 .ToListAsync();
 
@@ -51,5 +50,10 @@ namespace ZalakProject.Manager.Buyer
                 TotalPages = totalPages
             };
         }
+
+        //public async Task<BuyerProductMoreDetails> ViewMoreDetails()
+        //{
+
+        //} 
     }
 }
