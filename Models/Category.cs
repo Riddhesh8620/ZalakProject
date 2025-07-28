@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZalakProject.Models
 {
     public class Category
     {
-
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string Id { get; set; } = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
 
         [Required]
         [StringLength(100)]
