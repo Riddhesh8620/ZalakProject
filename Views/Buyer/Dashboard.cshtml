@@ -1,0 +1,30 @@
+﻿@using ZalakProject.ViewModels
+@model ProductListViewModel
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="data:image/jpeg;base64,@product.ProductImages" class="card-img-top" alt="@product.Name" />
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">₹@product.Price</p>
+                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Pagination -->
+<nav>
+    <ul class="pagination justify-content-center">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Dashboard", new { page = i, searchTerm = Model.SearchTerm, categoryId = Model.CategoryId })">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
