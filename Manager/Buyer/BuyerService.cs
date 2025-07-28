@@ -39,8 +39,7 @@ namespace ZalakProject.Manager.Buyer
                     Price = p.Price,
                     ProductImage = p.ProductImages
                                     .OrderBy(img => img.Id)
-                                    .Select(img => img.ImagePath)
-                                    .FirstOrDefault()
+                                    .ToList()
                 })
                 .ToListAsync();
 

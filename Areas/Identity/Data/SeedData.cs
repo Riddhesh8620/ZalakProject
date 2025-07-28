@@ -88,7 +88,7 @@ namespace ZalakProject.Areas.Identity.Data
                         {
                             Name = "Smartphone XY",
                             Description = "Latest smartphone with advanced features",
-                            Price = 599.99m,
+                            Price = 599.99,
                             CategoryId = 1,
                             StockQuantity = 50,
                             SellerId = seller.Id
@@ -97,7 +97,7 @@ namespace ZalakProject.Areas.Identity.Data
                         {
                             Name = "Cotton T-Shirt",
                             Description = "Comfortable cotton t-shirt in various colors",
-                            Price = 29.99m,
+                            Price = 29.99,
                             CategoryId = 2,
                             StockQuantity = 100,
                             SellerId = seller.Id
@@ -106,7 +106,7 @@ namespace ZalakProject.Areas.Identity.Data
                         {
                             Name = "Programming Guide",
                             Description = "Comprehensive guide to modern programming",
-                            Price = 45.99m,
+                            Price = 45.99,
                             CategoryId = 3,
                             StockQuantity = 25,
                             SellerId = seller.Id

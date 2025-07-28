@@ -27,14 +27,14 @@ namespace ZalakProject.Controllers
             var products = await _productService.GetAllProductsBySellerId(user.Id);
             var orders = await _orderService.GetOrdersForSellerAsync(user.Id);
 
-            //List<ProductListViewModel> productListViewModelsList = products.Select(q => ).ToList();
+            
 
             var viewModel = new SellerDashboardViewModel
             {
-                
+                Products = products,
                 TotalProducts = products.Count,
                 TotalOrders = orders.Count,
-                // ... add more stats
+                
             };
 
             return View(viewModel);

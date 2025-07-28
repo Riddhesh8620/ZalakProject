@@ -319,7 +319,7 @@ namespace ZalakProject.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SellerId")
@@ -354,7 +354,11 @@ namespace ZalakProject.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("FileData")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
