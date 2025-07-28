@@ -1,29 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Drawing.Printing;
 using ZalakProject.Data;
+using ZalakProject.Manager.CategoryManager;
 using ZalakProject.Manager.ProductManager;
 using ZalakProject.Models;
 using ZalakProject.ViewModels;
 
 namespace ZalakProject.Manager.Buyer
 {
-	public class BuyerService : IBuyerService
-	{
-		private readonly ApplicationDbContext _context;
-		private readonly IProductService _productService;
-		private readonly DbSet<Product> _productsDao;
+    public class BuyerService:IBuyerService
+    {
+        private readonly ApplicationDbContext _context;
+        private readonly DbSet<Product> _productsDao;
 
-		public BuyerService(ApplicationDbContext context, IProductService productService)
-		{
-			_context = context;
-			_productService = productService;
-			_productsDao = _context.Products;
-		}
+        public BuyerService(ApplicationDbContext context)
+        {
+            _context = context;
+            _productsDao = _context.Products;
+        }
 
-		public async Task<PaginatedResult<BuyerProductViewModel>> GetProductList(int pageNumber)
-		{
-			int pageSize = 9;
-			var query = _productsDao.AsNoTracking().Include(p => p.ProductImages)
-					   .AsQueryable();
+        public async Task<PaginatedResult<BuyerProductMoreDetails>> GetProductList(int pageNumber, int? categoryId)
+        {
+            int pageSize = 9;
+            var query = _productsDao.Include(p => p.ProductImages)
+                       .AsQueryable();
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryId);
+            }
 
 			int totalRecords = await query.CountAsync();
 			int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);

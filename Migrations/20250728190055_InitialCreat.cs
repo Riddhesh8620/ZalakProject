@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ZalakProject.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:Migrations/20250728191517_InitialMigration.cs
-    public partial class InitialMigration : Migration
-========
-    public partial class InitialCreate : Migration
->>>>>>>> e618c4bd33b3c1dece98d7c856a9b97a0bc25432:Migrations/20250728221012_InitialCreate.cs
+    public partial class InitialCreat : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -187,7 +183,7 @@ namespace ZalakProject.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
-                    Price = table.Column<double>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     StockQuantity = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -254,8 +250,7 @@ namespace ZalakProject.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<string>(type: "TEXT", nullable: false),
-                    FileName = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
-                    FileData = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagePath = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     Alt = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     IsPrimary = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)

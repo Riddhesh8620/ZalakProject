@@ -11,13 +11,8 @@ using ZalakProject.Data;
 namespace ZalakProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Migrations/20250728191517_InitialMigration.Designer.cs
-    [Migration("20250728191517_InitialMigration")]
-    partial class InitialMigration
-========
-    [Migration("20250728221012_InitialCreate")]
-    partial class InitialCreate
->>>>>>>> e618c4bd33b3c1dece98d7c856a9b97a0bc25432:Migrations/20250728221012_InitialCreate.Designer.cs
+    [Migration("20250728190055_InitialCreat")]
+    partial class InitialCreat
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,7 +322,7 @@ namespace ZalakProject.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SellerId")
@@ -362,11 +357,7 @@ namespace ZalakProject.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FileData")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FileName")
+                    b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");

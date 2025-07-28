@@ -1,5 +1,5 @@
 ﻿@using ZalakProject.ViewModels
-@model PaginatedResult<BuyerProductViewModel>
+@model PaginatedResult<BuyerProductMoreDetails>
 
 @{
     ViewBag.Title = "Buyer Dashboard";
@@ -10,15 +10,9 @@
     <!-- Category Filter -->
     @* <form asp-action="FilterByCategory" method="get" class="mb-4">
         <div class="row align-items-center">
-            <div class="col-md-4">
-                <select name="categoryId" class="form-select" onchange="this.form.submit()">
-                    <option value="">-- All Categories --</option>
-                    @foreach (var category in Model.Items.FirstOrDefault().)
-                    {
-                        <option value="@category.Id" @(category.Id == Model.SelectedCategoryId ? "selected" : "")>
-                            @category.Name
-                        </option>
-                    }
+            <div style="position: relative; z-index: 100;">
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories" onchange="this.form.submit()">
+                    <option value="">-- Select Category --</option>
                 </select>
             </div>
         </div>
