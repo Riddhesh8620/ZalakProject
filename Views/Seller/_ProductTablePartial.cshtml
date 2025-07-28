@@ -26,9 +26,9 @@ else
                 {
                     <tr class="align-middle text-center">
                         <td>
-                            @if (product.ProductImage != null && product.ProductImage.Any())
+                            @if (product.ProductImages != null && product.ProductImages.Any())
                             {
-                                <img src="@product.ProductImage.First().FileName" alt="Product" style="width: 60px; height: 60px; object-fit: cover;" class="rounded" />
+                                <img src="@product.ProductImages.First().FileName" alt="Product" style="width: 60px; height: 60px; object-fit: cover;" class="rounded" />
                             }
                             else
                             {

@@ -4,7 +4,7 @@ namespace ZalakProject.Manager.Buyer
 {
     public interface IBuyerService
     {
-        Task<PaginatedResult<BuyerProductViewModel>> GetProductList(int pageNumber);
+        Task<PaginatedResult<BuyerProductMoreDetails>> GetProductList(int pageNumber, int? categoryId);
         Task<BuyerProductMoreDetails> ViewMoreDetails(string productId);
     }
 }
