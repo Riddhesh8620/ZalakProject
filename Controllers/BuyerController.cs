@@ -22,11 +22,11 @@ namespace ZalakProject.Controllers
             var products = await _buyerService.GetProductList(pageNumber);
             return View(products);
         }
-        //public async Task<IActionResult> ViewDetails(string id)
-        //{
-           
-        //    return View(viewModel);
-        //}
+        public async Task<IActionResult> ViewDetails(string productId)
+        {
+            var viewModel = await _buyerService.ViewMoreDetails(productId);
+            return View(viewModel);
+        }
         public IActionResult Index()
         {
             return View();

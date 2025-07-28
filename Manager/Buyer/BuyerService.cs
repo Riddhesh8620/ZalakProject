@@ -51,9 +51,20 @@ namespace ZalakProject.Manager.Buyer
             };
         }
 
-        //public async Task<BuyerProductMoreDetails> ViewMoreDetails()
-        //{
-
-        //} 
+        public async Task<BuyerProductMoreDetails> ViewMoreDetails(string productId)
+        {
+            var productItem = await _productsDao.Include(r => r.Reviews)
+                .Include(p => p.ProductImages)
+                .FirstOrDefaultAsync(p => p.Id == productId);
+            return new BuyerProductMoreDetails
+            {
+                reviews = productItem.Reviews.ToList(),
+                StockQuantity = productItem.StockQuantity,
+                ProductName = productItem.Name,
+                Description = productItem.Description,
+                Price = productItem.Price,
+                ProductImages = productItem.ProductImages.ToList()
+            };
+        }
     }
 }
