@@ -13,6 +13,7 @@ namespace ZalakProject.Manager.ProductManager
         public ProductService(ApplicationDbContext context)
         {
             _context = context;
+			_productDao = context.Products;
         }
 
 		public async Task<List<ProductListViewModel>> GetAllProductsBySellerId(string sellerId)
