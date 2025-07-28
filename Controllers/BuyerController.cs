@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZalakProject.Data;
+using ZalakProject.Manager.Buyer;
 
 namespace ZalakProject.Controllers
 {
@@ -8,14 +9,16 @@ namespace ZalakProject.Controllers
     public class BuyerController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public BuyerController(ApplicationDbContext context) 
+        private readonly IBuyerService _buyerService;
+        public BuyerController(ApplicationDbContext context,IBuyerService buyerService) 
         {
             _context = context;
+            _buyerService = buyerService;
         }
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard(int pageNumber = 1)
         {
-
-            return View();
+            var products = await _buyerService.GetProductList(pageNumber);
+            return View(products);
         }
         public IActionResult Index()
         {

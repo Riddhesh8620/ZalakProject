@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using ZalakProject.Data;
 using ZalakProject.Models;
 using ZalakProject.ViewModels;
@@ -9,11 +10,10 @@ namespace ZalakProject.Manager.ProductManager
 		private readonly ApplicationDbContext _context;
 		private readonly DbSet<Product> _productDao;
 
-		public ProductService(ApplicationDbContext context)
-		{
-			_context = context;
-			_productDao = context.Products;
-		}
+        public ProductService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
 		public async Task<List<ProductListViewModel>> GetAllProductsBySellerId(string sellerId)
 		{
