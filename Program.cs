@@ -6,6 +6,7 @@ using ZalakProject.Manager.Buyer;
 using ZalakProject.Manager.CategoryManager;
 using ZalakProject.Manager.OrderManager;
 using ZalakProject.Manager.ProductManager;
+using ZalakProject.Manager.ReviewManager;
 using ZalakProject.Models;
 //using ZalakProject.Data;
 
@@ -22,7 +23,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IBuyerService, BuyerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
