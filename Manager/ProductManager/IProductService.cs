@@ -4,6 +4,6 @@ namespace ZalakProject.Manager.ProductManager
 {
     public interface IProductService
     {
-        //Task<List<Product>> GetAllProducts();
+        Task<List<Product>> GetAllProductsBySellerId(string sellerId);
     }
 }

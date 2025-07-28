@@ -15,18 +15,9 @@ namespace ZalakProject.Manager.ProductManager
             _context = context;
         }
 
-        //public async Task<PaginatedResult<T>> GetProductsWithPagination<T>() where T : class 
-        //{
-        //    switch (typeof(T))
-        //    {
-        //        case typeof(BuyerProductViewModel):
-        //            return new PaginatedResult<BuyerProductViewModel>
-        //            {
-
-        //            }
-        //            break;
-        //    }
-        //    //return await _productDao.AsNoTracking().ToListAsync();
-        //}
+        public async Task<List<Product>> GetAllProductsBySellerId(string sellerId)
+        {
+            return await _productDao.AsNoTracking().Where(q => q.SellerId == sellerId).ToListAsync();
+        }
     }
 }
