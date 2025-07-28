@@ -19,7 +19,7 @@ namespace ZalakProject.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         [Required]
         public int CategoryId { get; set; }

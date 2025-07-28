@@ -14,7 +14,9 @@ namespace ZalakProject.Models
 
         [Required]
         [StringLength(500)]
-        public string ImagePath { get; set; } = string.Empty;
+        public string FileName { get; set; } 
+
+        public string FileData { get; set; }
 
         [StringLength(200)]
         public string? Alt { get; set; }

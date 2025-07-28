@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZalakProject.Data;
 
@@ -10,9 +11,16 @@ using ZalakProject.Data;
 namespace ZalakProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:Migrations/20250728191517_InitialMigration.Designer.cs
+    [Migration("20250728191517_InitialMigration")]
+    partial class InitialMigration
+========
+    [Migration("20250728221012_InitialCreate")]
+    partial class InitialCreate
+>>>>>>>> e618c4bd33b3c1dece98d7c856a9b97a0bc25432:Migrations/20250728221012_InitialCreate.Designer.cs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.17");

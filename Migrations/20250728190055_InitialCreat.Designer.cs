@@ -11,8 +11,8 @@ using ZalakProject.Data;
 namespace ZalakProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250728191517_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250728190055_InitialCreat")]
+    partial class InitialCreat
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
