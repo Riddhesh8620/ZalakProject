@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ZalakProject.Areas.Identity.Data;
 using ZalakProject.Data;
 using ZalakProject.Manager.Buyer;
+using ZalakProject.Manager.OrderManager;
 using ZalakProject.Manager.ProductManager;
 using ZalakProject.Models;
 //using ZalakProject.Data;
@@ -19,6 +20,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBuyerService, BuyerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,30 +1,29 @@
-﻿@using ZalakProject.ViewModels
-@model ProductListViewModel
+﻿@{
+    ViewData["Title"] = "Seller Dashboard";
+}
+<h2>Welcome, @User.Identity.Name</h2>
 
 <div class="row">
-    @foreach (var product in Model.Products)
-    {
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <img src="data:image/jpeg;base64,@product.ProductImages" class="card-img-top" alt="@product.Name" />
-                <div class="card-body">
-                    <h5 class="card-title">@product.Name</h5>
-                    <p class="card-text">₹@product.Price</p>
-                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">View</a>
-                </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5>Total Products</h5>
+                <p class="display-6">@Model.TotalProducts</p>
             </div>
         </div>
-    }
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5>Orders</h5>
+                <p class="display-6">@Model.TotalOrders</p>
+            </div>
+        </div>
+    </div>
+    <!-- Add more summary cards here -->
 </div>
 
-<!-- Pagination -->
-<nav>
-    <ul class="pagination justify-content-center">
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                <a class="page-link" href="@Url.Action("Dashboard", new { page = i, searchTerm = Model.SearchTerm, categoryId = Model.CategoryId })">@i</a>
-            </li>
-        }
-    </ul>
-</nav>
+<a class="btn btn-primary my-3" asp-controller="Products" asp-action="Create">Add New Product</a>
+
+<h3>Your Products</h3>
+<partial name="_ProductTablePartial" model="Model.Products" />

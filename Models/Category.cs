@@ -6,8 +6,8 @@ namespace ZalakProject.Models
     public class Category
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Id { get; set; } = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]

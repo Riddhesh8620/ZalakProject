@@ -27,8 +27,8 @@ namespace ZalakProject.Models
         [Required]
         public int StockQuantity { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [Required]
         public string SellerId { get; set; } = string.Empty;

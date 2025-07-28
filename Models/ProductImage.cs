@@ -10,7 +10,7 @@ namespace ZalakProject.Models
         public int Id { get; set; }
 
         [Required]
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
 
         [Required]
         [StringLength(500)]
