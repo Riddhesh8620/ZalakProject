@@ -1,20 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ZalakProject.Models;
 
-namespace ZalakProject.Models
+namespace ZalakProject.ViewModels
 {
-    public class Cart
+    public class CartViewModel
     {
         [Required]
         public string ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
         [Required]
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
         [Required]
-        public string SellerId  { get; set; }
+        public string SellerId { get; set; }
         [Required]
         public double Price { get; set; }
         [Required]

@@ -65,6 +65,9 @@
             <!-- Add to Cart -->
             <form asp-action="AddToCart" method="post" class="d-flex align-items-center">
                 <input type="hidden" name="productId" value="@Model.ProductId" />
+                <input type="hidden" name="SellerId" value="@Model.SellerId" />
+                <input type="hidden" name="Price" value="@Model.Price" />
+                <input type="hidden" name="ProductName" value="@Model.ProductName" />
                 <div class="input-group" style="max-width: 200px;">
                     <input type="number" name="quantity" value="1" class="form-control" min="1" />
                     <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i>Add to Cart</button>
