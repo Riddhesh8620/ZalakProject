@@ -21,9 +21,10 @@ namespace ZalakProject.ViewModels
         public string CategoryName { get; set; }
 
         [Required]
-        public int StockQuantity{get; set; }
+        public int StockQuantity { get; set; }
         public int CategoryId { get; set; }
         [Required]
-        public string ProductImage {  get; set; }
+        public string ProductImage { get; set; }
         public string SellerId { get; set; }
+    }
 }

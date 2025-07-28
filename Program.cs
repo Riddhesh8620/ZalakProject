@@ -17,8 +17,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IBuyerService, BuyerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBuyerService, BuyerService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
