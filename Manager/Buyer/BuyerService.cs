@@ -53,7 +53,7 @@ namespace ZalakProject.Manager.Buyer
 
         public async Task<BuyerProductMoreDetails> ViewMoreDetails(string productId)
         {
-            var productItem = await _productsDao.Include(r => r.Reviews)
+            var productItem = await _productsDao.Include(r => r.Reviews).ThenInclude(u => u.User)
                 .Include(p => p.ProductImages)
                 .FirstOrDefaultAsync(p => p.Id == productId);
             return new BuyerProductMoreDetails

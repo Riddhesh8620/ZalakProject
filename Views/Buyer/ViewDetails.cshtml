@@ -18,7 +18,7 @@
                 @foreach (var review in @Model.reviews)
                 {
                     <div class="border rounded-3 p-2 mb-3 shadow-sm bg-light">
-                        <strong>@review.User.Email</strong> - ⭐ @review.Rating/5
+                        <strong>@review.User.Email</strong> - @review.Rating/5 ⭐
                         <p class="mb-1">@review.Comment</p>
                         <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
                     </div>
@@ -77,7 +77,8 @@
     <h4 class="mb-4 text-primary">Write a Review</h4>
 
     <form asp-action="PostReview" method="post">
-        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+        @* <input type="hidden" name="ProductId" value="@Model.ProductId" /> *@
+        <input asp-for="ProductId" type="hidden" />
 
         <div class="mb-3">
             <label for="Comment" class="form-label">Your Comment</label>
