@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ZalakProject.Areas.Identity.Data;
 using ZalakProject.Data;
+using ZalakProject.Manager.Buyer;
+using ZalakProject.Manager.ProductManager;
 using ZalakProject.Models;
 //using ZalakProject.Data;
 
@@ -15,7 +17,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IBuyerService, BuyerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
