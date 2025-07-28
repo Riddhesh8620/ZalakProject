@@ -5,16 +5,17 @@ namespace ZalakProject.Models
 {
     public class Cart
     {
-        [Required]
+        
         public string ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
-        [Required]
-        public string UserId { get; set; }
+        
+        public string BuyerId { get; set; }
         [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
-        [Required]
+        public ApplicationUser Buyer { get; set; }
+        
         public string SellerId  { get; set; }
+        public ApplicationUser Seller { get; set; }
         [Required]
         public double Price { get; set; }
         [Required]

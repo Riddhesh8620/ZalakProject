@@ -24,7 +24,7 @@ namespace ZalakProject.ViewModels
         public int StockQuantity { get; set; }
         public int CategoryId { get; set; }
         [Required]
-        public List<ProductImage> ProductImages { get; set; }
+        public List<ProductImageViewModel> ProductImages { get; set; } = new();
         public string SellerId { get; set; }
     }
 }

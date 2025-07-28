@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NuGet.Packaging.Signing;
 using ZalakProject.Data;
 using ZalakProject.Models;
 using ZalakProject.ViewModels;
@@ -32,10 +31,11 @@ namespace ZalakProject.Manager.ProductManager
 
 			if (product.ProductImages.Any())
 			{
-                var imageFolderPath = Path.Combine(_webHostEnvironment.WebRootPath, "product-images");
+				var imageFolderPath = Path.Combine(_webHostEnvironment.WebRootPath, "product-images");
 
-                foreach (var image in product.ProductImages) {
-					productEditViewModel.ExistingImages.Add(new ProductImageViewModel 
+				foreach (var image in product.ProductImages)
+				{
+					productEditViewModel.ExistingImages.Add(new ProductImageViewModel
 					{
 						Alt = image.Alt,
 						FileData = image.FileData,
@@ -90,22 +90,22 @@ namespace ZalakProject.Manager.ProductManager
 				{
 					if (image != null && image.Length > 0)
 					{
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await image.CopyToAsync(memoryStream);
-                            var fileBytes = memoryStream.ToArray();
-                            var base64String = Convert.ToBase64String(fileBytes);
+						using (var memoryStream = new MemoryStream())
+						{
+							await image.CopyToAsync(memoryStream);
+							var fileBytes = memoryStream.ToArray();
+							var base64String = Convert.ToBase64String(fileBytes);
 
-                            model.ProductImages.Add(new ProductImage
-                            {
-                                ProductId = model.Id,
-                                FileName = Path.GetFileName(image.FileName),
-                                FileData = base64String,
-                                Alt = Path.GetFileNameWithoutExtension(image.FileName),
-                                IsPrimary = false // or set logic for primary image
-                            });
-                        }
-                    }
+							model.ProductImages.Add(new ProductImage
+							{
+								ProductId = model.Id,
+								FileName = Path.GetFileName(image.FileName),
+								FileData = base64String,
+								Alt = Path.GetFileNameWithoutExtension(image.FileName),
+								IsPrimary = false // or set logic for primary image
+							});
+						}
+					}
 				}
 				_productDao.Add(model);
 				await _context.ProductImages.AddRangeAsync(model.ProductImages);
@@ -122,14 +122,14 @@ namespace ZalakProject.Manager.ProductManager
 
 		public async Task<bool> UpdateProductAsync(ProductEditViewModel viewModel)
 		{
-			var product = await FindProductByIdAsync(viewModel.ProductId);
+			var product = await _productDao.AsTracking().Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == viewModel.ProductId);
 
 			if (product == null)
 			{
 				return false;
 			}
 			else if (viewModel.Price <= 0.00
-					|| viewModel.NewImages == null
+					|| viewModel.ExistingImages.Count > 3
 					|| viewModel.StockQuantity <= 0
 					|| viewModel.CategoryId <= 0)
 			{
@@ -145,30 +145,30 @@ namespace ZalakProject.Manager.ProductManager
 
 			if (viewModel.NewImages != null && viewModel.NewImages.Any())
 			{
-				foreach (var file in viewModel.NewImages)
+				foreach (var image in viewModel.NewImages)
 				{
-					if (file.Length > 0)
+					if (image != null && image.Length > 0)
 					{
-						var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-						var safeName = string.Concat(Path.GetFileNameWithoutExtension(file.FileName)
-							.Where(c => !Path.GetInvalidFileNameChars().Contains(c)));
-						var extension = Path.GetExtension(file.FileName);
-						var fileName = $"{timestamp}_{safeName}{extension}";
-						var path = Path.Combine(_webHostEnvironment.WebRootPath, "product-images", fileName);
-
-						using (var stream = new FileStream(path, FileMode.Create))
+						using (var memoryStream = new MemoryStream())
 						{
-							await file.CopyToAsync(stream);
+							await image.CopyToAsync(memoryStream);
+							var fileBytes = memoryStream.ToArray();
+							var base64String = Convert.ToBase64String(fileBytes);
+
+							product.ProductImages.Add(new ProductImage
+							{
+								ProductId = product.Id,
+								FileName = Path.GetFileName(image.FileName),
+								FileData = base64String,
+								Alt = Path.GetFileNameWithoutExtension(image.FileName),
+								IsPrimary = false // or set logic for primary image
+							});
 						}
-
-						product.ProductImages.Add(new ProductImage
-						{
-							ProductId = product.Id,
-							FileName = "/product-images/" + fileName
-						});
 					}
 				}
 			}
+			_context.Products.Update(product);
+			_context.ProductImages.UpdateRange(product.ProductImages);
 			await _context.SaveChangesAsync();
 			return true;
 		}
@@ -190,7 +190,7 @@ namespace ZalakProject.Manager.ProductManager
 				Price = product.Price,
 				ProductId = product.Id,
 				ProductName = product.Name,
-				ProductImages = product.ProductImages.ToList(),
+				ProductImages = new(),
 				SellerId = product.SellerId,
 				StockQuantity = product.StockQuantity,
 			};
