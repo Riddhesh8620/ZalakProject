@@ -45,7 +45,10 @@ namespace ZalakProject.Areas.Identity.Pages.Account.Manage
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
+        [BindProperty]
+        public IFormFile? ProfileImage { get; set; }
 
+        public string? ProfileImageData { get; set; }
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -59,6 +62,10 @@ namespace ZalakProject.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [BindProperty]
+            public IFormFile? ProfileImage { get; set; }
+
+            public string? ProfileImageData { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -67,7 +74,7 @@ namespace ZalakProject.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
-
+            
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber
@@ -81,7 +88,7 @@ namespace ZalakProject.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
+            ProfileImageData = user.ProfileImageData;
             await LoadAsync(user);
             return Page();
         }
@@ -98,6 +105,17 @@ namespace ZalakProject.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+
+
+            if (Input.ProfileImage != null && Input.ProfileImage.Length > 0)
+            {
+                using var memoryStream = new MemoryStream();
+                await Input.ProfileImage.CopyToAsync(memoryStream);
+                var imageBytes = memoryStream.ToArray();
+                user.ProfileImageData = Convert.ToBase64String(imageBytes);
+                user.ProfileImageName = Path.GetFileName(Input.ProfileImage.FileName);
+                await _userManager.UpdateAsync(user);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

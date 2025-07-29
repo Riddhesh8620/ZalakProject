@@ -49,14 +49,15 @@ namespace ZalakProject.Controllers
             await _reviewService.AddReview(model, user.Id);
             return RedirectToAction("ViewDetails", new { productId = model.ProductId });
         }
-        //[HttpGet]
-        //public async Task<IActionResult> FilterByCategory(string? categoryId)
-        //{
-        //    var viewModel = await _buyerService.GetProductListFilteredByCategory(categoryId); // You define this service method
-        //    viewModel.Categories = await _context.Categories.ToListAsync(); // or from service
-        //    viewModel.CategoryId = categoryId; // Set selected back to persist selection in UI
-        //    return View("ProductList", viewModel); // Use your actual view name
-        //}
+
+        [HttpGet]
+        public async Task<IActionResult> FilterByCategory(string? categoryId)
+        {
+            var viewModel = await _buyerService.GetProductListFilteredByCategory(categoryId); // You define this service method
+            viewModel.Categories = await _context.Categories.ToListAsync(); // or from service
+            viewModel.CategoryId = categoryId; // Set selected back to persist selection in UI
+            return View("ProductList", viewModel); // Use your actual view name
+        }
         public IActionResult Index()
         {
             return View();

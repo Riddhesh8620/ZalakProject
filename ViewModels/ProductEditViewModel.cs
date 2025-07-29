@@ -28,7 +28,7 @@ namespace ZalakProject.ViewModels
 
         public List<Category> Categories { get; set; }
 
-        public List<IFormFile> NewImages { get; set; } = new();
+        public List<IFormFile>? NewImages { get; set; } = new();
         public List<ProductImageViewModel> ExistingImages { get; set; } = new();
     }
 }
