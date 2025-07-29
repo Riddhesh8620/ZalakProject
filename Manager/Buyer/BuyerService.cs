@@ -34,13 +34,13 @@ namespace ZalakProject.Manager.Buyer
 			int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
 
 			var product = await query.OrderByDescending(p => p.CreatedAt).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-			List<BuyerProductViewModel> buyerProductViewModels = new List<BuyerProductViewModel>();
+			List<BuyerProductMoreDetails> buyerProductViewModels = new List<BuyerProductMoreDetails>();
 
 			if (product.Any())
 			{
 				foreach (var model in product)
 				{
-					BuyerProductViewModel viewModel = new BuyerProductViewModel();
+                    BuyerProductMoreDetails viewModel = new BuyerProductMoreDetails();
 					viewModel.ProductId = model.Id;
 					viewModel.ProductName = model.Name;
 					viewModel.Price = model.Price;
@@ -65,7 +65,7 @@ namespace ZalakProject.Manager.Buyer
 
 
 
-			return new PaginatedResult<BuyerProductViewModel>
+			return new PaginatedResult<BuyerProductMoreDetails>
 			{
 				Items = buyerProductViewModels,
 				CurrentPage = pageNumber,
